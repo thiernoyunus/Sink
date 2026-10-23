@@ -44,6 +44,7 @@ describe('/_docs/openapi.json', () => {
     expect(createLink?.required).toEqual(['url'])
     expect(createLink?.properties?.url?.format).toBe('uri')
     expect(createLink?.properties?.proxy?.type).toBe('boolean')
+    expect(createLink?.properties?.openInYouTubeApp?.type).toBe('boolean')
     expect(createLink?.properties?.id).toBeTruthy()
     expect(createLink?.properties?.slug).toBeTruthy()
     expect(createLink?.properties?.createdAt).toBeTruthy()

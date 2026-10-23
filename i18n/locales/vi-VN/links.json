@@ -72,6 +72,8 @@
       "expired_recovery": "Liên kết này đã hết hạn. Đặt ngày mới trong tương lai hoặc xóa ngày hết hạn để khôi phục.",
       "pick_date": "Chọn ngày",
       "device_redirect": "Chuyển hướng theo thiết bị",
+      "open_youtube_app_label": "Mở trong ứng dụng YouTube",
+      "open_youtube_app_description": "Trên điện thoại, thử mở liên kết này trong YouTube. Nếu không được, liên kết sẽ mở trong trình duyệt.",
       "google_play": "URL Google Play",
       "app_store": "URL App Store",
       "link_settings": "Cài đặt liên kết",

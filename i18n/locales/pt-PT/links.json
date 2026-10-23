@@ -72,6 +72,8 @@
       "expired_recovery": "Este link expirou. Define uma nova data futura ou remove a expiração para o reativar.",
       "pick_date": "Escolhe uma data",
       "device_redirect": "Redirecionamento de dispositivo",
+      "open_youtube_app_label": "Abrir na aplicação YouTube",
+      "open_youtube_app_description": "Em telemóveis, tentar abrir esta ligação no YouTube. Se não funcionar, abre no navegador.",
       "google_play": "URL do Google Play",
       "app_store": "URL da App Store",
       "link_settings": "Definições do link",

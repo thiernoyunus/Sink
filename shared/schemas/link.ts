@@ -83,6 +83,7 @@ export const LinkFieldsSchema = z.object({
   image: z.string().trim().max(128).optional().describe('Overrides the image in the link preview.'),
   apple: z.string().trim().url().max(MAX_URL_LENGTH).optional().describe('Apple App Store redirect URL.'),
   google: z.string().trim().url().max(MAX_URL_LENGTH).optional().describe('Google Play Store redirect URL.'),
+  openInYouTubeApp: z.boolean().optional().describe('Try to open YouTube video or channel links in the YouTube app on mobile devices.'),
   cloaking: z.boolean().optional().describe('Mask the destination URL behind the short link.'),
   redirectWithQuery: z.boolean().optional().describe('Append incoming query parameters to the destination URL.'),
   proxy: z.boolean().optional().describe('Reverse-proxy the destination instead of redirecting.'),

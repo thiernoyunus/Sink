@@ -277,7 +277,11 @@ describe('d1 link integration', () => {
 
   it('writes legacy KV links to D1 only through explicit migration', async () => {
     await clearLinkMigrationState()
-    const link = makeLink(undefined, { tags: ['legacy-tag'] })
+    const link = makeLink(undefined, {
+      url: 'https://youtu.be/abcdefghijk',
+      openInYouTubeApp: true,
+      tags: ['legacy-tag'],
+    })
     await putKvLink(link)
 
     expect((await fetch(`/${link.slug}`, { redirect: 'manual' })).status).toBe(301)
@@ -286,7 +290,7 @@ describe('d1 link integration', () => {
 
     await runMigration(false)
 
-    expect(await getD1Link(link.slug)).toMatchObject({ slug: link.slug, url: link.url })
+    expect(await getD1Link(link.slug)).toMatchObject({ slug: link.slug, url: link.url, openInYouTubeApp: true })
     const query = await fetchWithAuth(`/api/link/query?slug=${link.slug}`)
     expect(query.status).toBe(200)
     expect(await query.json()).toMatchObject({ tags: ['legacy-tag'] })

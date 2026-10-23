@@ -1,0 +1,1 @@
+ALTER TABLE `links` ADD `open_in_youtube_app` integer;

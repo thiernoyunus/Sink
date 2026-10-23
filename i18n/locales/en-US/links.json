@@ -72,6 +72,8 @@
       "expired_recovery": "This link has expired. Set a new future expiration date or clear it to restore the link.",
       "pick_date": "Pick a date",
       "device_redirect": "Device Redirect",
+      "open_youtube_app_label": "Open in YouTube app",
+      "open_youtube_app_description": "On phones, try opening this link in YouTube. If that doesn’t work, it will open in a browser.",
       "google_play": "Google Play URL",
       "app_store": "App Store URL",
       "link_settings": "Link Settings",

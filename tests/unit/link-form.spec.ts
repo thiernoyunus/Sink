@@ -19,6 +19,7 @@ describe('link form values', () => {
       expiration: undefined,
       google: '',
       apple: '',
+      openInYouTubeApp: false,
       title: '',
       description: '',
       image: '',
@@ -104,6 +105,14 @@ describe('link form submit payload', () => {
       .toMatchObject({ proxy: true, cloaking: true })
     expect(normalizeLinkFormSubmitPayload(formValues({ cloaking: true }), false))
       .toMatchObject({ cloaking: true, proxy: false })
+  })
+
+  it('submits the YouTube app preference explicitly', () => {
+    expect(normalizeLinkFormSubmitPayload(formValues({
+      url: 'https://www.youtube.com/watch?v=abcdefghijk',
+      openInYouTubeApp: true,
+    }), false).openInYouTubeApp).toBe(true)
+    expect(normalizeLinkFormSubmitPayload(formValues(), false).openInYouTubeApp).toBe(false)
   })
 
   it('normalizes geo rows into the current record representation', () => {

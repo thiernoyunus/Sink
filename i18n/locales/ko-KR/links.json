@@ -72,6 +72,8 @@
       "expired_recovery": "이 링크는 만료되었습니다. 새 만료일을 미래로 설정하거나 만료일을 지우면 다시 활성화됩니다.",
       "pick_date": "날짜 선택",
       "device_redirect": "기기별 리디렉션",
+      "open_youtube_app_label": "YouTube 앱에서 열기",
+      "open_youtube_app_description": "휴대전화에서 이 링크를 YouTube 앱으로 열어 봅니다. 열리지 않으면 브라우저에서 엽니다.",
       "google_play": "Google Play URL",
       "app_store": "App Store URL",
       "link_settings": "링크 설정",

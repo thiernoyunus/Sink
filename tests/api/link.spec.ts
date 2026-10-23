@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { links } from '../../server/database/schema'
-import { db, deleteStoredLinks, expectMaskedPassword, expectStoredHashedPassword, fetch, fetchWithAuth, getStoredLink, postJson, putJson, setLinkStoreD1Mode } from '../utils'
+import { db, deleteStoredLinks, expectMaskedPassword, expectStoredHashedPassword, fetch, fetchWithAuth, getD1Link, getStoredLink, postJson, putJson, setLinkStoreD1Mode } from '../utils'
 
 const createdSlugs = new Set<string>()
 
@@ -114,6 +114,23 @@ describe('/api/link/create', { concurrent: false }, () => {
     expect(data.link.url).toBe(payload.url)
     expect(data.link.slug).toBe(payload.slug)
     expect(data.shortLink).toContain(payload.slug)
+  })
+
+  it('stores the YouTube app preference and returns it from D1', async () => {
+    const payload = {
+      url: 'https://www.youtube.com/watch?v=abcdefghijk',
+      slug: trackSlug(`youtube-app-${crypto.randomUUID()}`),
+      openInYouTubeApp: true,
+    }
+    const response = await postJson('/api/link/create', payload)
+    expect(response.status).toBe(201)
+    expect((await response.json() as { link: { openInYouTubeApp?: boolean } }).link.openInYouTubeApp).toBe(true)
+    expect(await getD1Link(payload.slug)).toMatchObject({ openInYouTubeApp: true })
+
+    const edit = await putJson('/api/link/edit', { ...payload, openInYouTubeApp: false })
+    expect(edit.status).toBe(201)
+    expect((await edit.json() as { link: { openInYouTubeApp?: boolean } }).link.openInYouTubeApp).toBe(false)
+    expect(await getD1Link(payload.slug)).toMatchObject({ openInYouTubeApp: false })
   })
 
   it('creates and searches for a long target URL', async () => {

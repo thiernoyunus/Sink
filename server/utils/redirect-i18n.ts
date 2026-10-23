@@ -10,6 +10,9 @@ interface RedirectTranslation {
   unsafeTitle: string
   unsafeDesc: string
   goBack: string
+  youtubeOpening: string
+  youtubeOpenInApp: string
+  youtubeWatchInBrowser: string
 }
 
 const REDIRECT_LOCALES = [
@@ -40,6 +43,9 @@ export const REDIRECT_TRANSLATIONS = {
     unsafeTitle: 'Potenziell unsicherer Link',
     unsafeDesc: 'Dieser Link wurde als potenziell unsicher markiert. Gehen Sie mit Vorsicht vor.',
     goBack: 'Zurück',
+    youtubeOpening: 'YouTube wird geöffnet…',
+    youtubeOpenInApp: 'In der YouTube-App öffnen',
+    youtubeWatchInBrowser: 'Im Browser ansehen',
   },
   'en-US': {
     passwordTitle: 'Password Required',
@@ -50,6 +56,9 @@ export const REDIRECT_TRANSLATIONS = {
     unsafeTitle: 'Potentially Unsafe Link',
     unsafeDesc: 'This link has been flagged as potentially unsafe. Proceed with caution.',
     goBack: 'Go Back',
+    youtubeOpening: 'Opening YouTube…',
+    youtubeOpenInApp: 'Open in YouTube app',
+    youtubeWatchInBrowser: 'Watch in your browser',
   },
   'fr-FR': {
     passwordTitle: 'Mot de passe requis',
@@ -60,6 +69,9 @@ export const REDIRECT_TRANSLATIONS = {
     unsafeTitle: 'Lien potentiellement dangereux',
     unsafeDesc: 'Ce lien a été signalé comme potentiellement dangereux. Procédez avec prudence.',
     goBack: 'Retour',
+    youtubeOpening: 'Ouverture de YouTube…',
+    youtubeOpenInApp: 'Ouvrir dans l’application YouTube',
+    youtubeWatchInBrowser: 'Regarder dans le navigateur',
   },
   'id-ID': {
     passwordTitle: 'Diperlukan Kata Sandi',
@@ -70,6 +82,9 @@ export const REDIRECT_TRANSLATIONS = {
     unsafeTitle: 'Tautan Berpotensi Tidak Aman',
     unsafeDesc: 'Tautan ini telah ditandai berpotensi tidak aman. Lanjutkan dengan hati-hati.',
     goBack: 'Kembali',
+    youtubeOpening: 'Membuka YouTube…',
+    youtubeOpenInApp: 'Buka di aplikasi YouTube',
+    youtubeWatchInBrowser: 'Tonton di browser',
   },
   'it-IT': {
     passwordTitle: 'Password richiesta',
@@ -80,6 +95,9 @@ export const REDIRECT_TRANSLATIONS = {
     unsafeTitle: 'Link potenzialmente non sicuro',
     unsafeDesc: 'Questo link è stato contrassegnato come potenzialmente non sicuro. Procedi con cautela.',
     goBack: 'Indietro',
+    youtubeOpening: 'Apertura di YouTube…',
+    youtubeOpenInApp: 'Apri nell’app YouTube',
+    youtubeWatchInBrowser: 'Guarda nel browser',
   },
   'pt-BR': {
     passwordTitle: 'Senha necessária',
@@ -90,6 +108,9 @@ export const REDIRECT_TRANSLATIONS = {
     unsafeTitle: 'Link potencialmente inseguro',
     unsafeDesc: 'Este link foi sinalizado como potencialmente inseguro. Prossiga com cuidado.',
     goBack: 'Voltar',
+    youtubeOpening: 'Abrindo o YouTube…',
+    youtubeOpenInApp: 'Abrir no app do YouTube',
+    youtubeWatchInBrowser: 'Assistir no navegador',
   },
   'pt-PT': {
     passwordTitle: 'Palavra-passe necessária',
@@ -100,6 +121,9 @@ export const REDIRECT_TRANSLATIONS = {
     unsafeTitle: 'Ligação potencialmente insegura',
     unsafeDesc: 'Esta ligação foi assinalada como potencialmente insegura. Prossiga com cuidado.',
     goBack: 'Voltar',
+    youtubeOpening: 'A abrir o YouTube…',
+    youtubeOpenInApp: 'Abrir na app do YouTube',
+    youtubeWatchInBrowser: 'Ver no navegador',
   },
   'vi-VN': {
     passwordTitle: 'Yêu cầu mật khẩu',
@@ -110,6 +134,9 @@ export const REDIRECT_TRANSLATIONS = {
     unsafeTitle: 'Liên kết có thể không an toàn',
     unsafeDesc: 'Liên kết này đã bị đánh dấu là có thể không an toàn. Hãy thận trọng khi tiếp tục.',
     goBack: 'Quay lại',
+    youtubeOpening: 'Đang mở YouTube…',
+    youtubeOpenInApp: 'Mở trong ứng dụng YouTube',
+    youtubeWatchInBrowser: 'Xem trong trình duyệt',
   },
   'zh-CN': {
     passwordTitle: '需要密码',
@@ -120,6 +147,9 @@ export const REDIRECT_TRANSLATIONS = {
     unsafeTitle: '潜在不安全链接',
     unsafeDesc: '此链接已被标记为潜在不安全。请谨慎访问。',
     goBack: '返回',
+    youtubeOpening: '正在打开 YouTube…',
+    youtubeOpenInApp: '在 YouTube 应用中打开',
+    youtubeWatchInBrowser: '在浏览器中观看',
   },
   'zh-TW': {
     passwordTitle: '需要密碼',
@@ -130,6 +160,9 @@ export const REDIRECT_TRANSLATIONS = {
     unsafeTitle: '潛在不安全連結',
     unsafeDesc: '此連結已被標記為潛在不安全。請謹慎訪問。',
     goBack: '返回',
+    youtubeOpening: '正在開啟 YouTube…',
+    youtubeOpenInApp: '在 YouTube 應用程式中開啟',
+    youtubeWatchInBrowser: '在瀏覽器中觀看',
   },
 } as const satisfies Record<RedirectLocale, RedirectTranslation>
 

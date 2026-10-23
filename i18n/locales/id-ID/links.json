@@ -72,6 +72,8 @@
       "expired_recovery": "Tautan ini telah kedaluwarsa. Tetapkan tanggal baru di masa mendatang atau hapus tanggalnya untuk mengaktifkan kembali.",
       "pick_date": "Pilih tanggal",
       "device_redirect": "Redirect Perangkat",
+      "open_youtube_app_label": "Buka di aplikasi YouTube",
+      "open_youtube_app_description": "Di ponsel, coba buka tautan ini di YouTube. Jika tidak berhasil, tautan akan terbuka di browser.",
       "google_play": "URL Google Play",
       "app_store": "URL App Store",
       "link_settings": "Pengaturan Tautan",

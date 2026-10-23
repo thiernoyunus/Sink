@@ -6,6 +6,7 @@ import { useDebounceFn } from '@vueuse/core'
 import { toast } from 'vue-sonner'
 import { z } from 'zod'
 import { MAX_URL_LENGTH, nanoid, SlugSchema } from '#shared/schemas/link'
+import { isYouTubeAppLinkUrl } from '#shared/utils/youtube'
 
 const props = defineProps<{
   link: Partial<DashboardLink>
@@ -130,8 +131,14 @@ async function aiSlug() {
 
 const currentSlug = form.useStore(state => state.values.slug || '')
 const currentUrl = form.useStore(state => state.values.url || '')
+const isYouTubeAppLink = computed(() => isYouTubeAppLinkUrl(currentUrl.value))
 const duplicateLink = shallowRef<Awaited<ReturnType<typeof linksSearchStore.findDuplicateLink>>>()
 let duplicateRequestGeneration = 0
+
+watch(currentUrl, (url) => {
+  if (!isYouTubeAppLinkUrl(url) && form.getFieldValue('openInYouTubeApp'))
+    form.setFieldValue('openInYouTubeApp', false)
+})
 
 const findDuplicateLink = useDebounceFn(async (url: string, generation: number) => {
   if (generation !== duplicateRequestGeneration || currentUrl.value !== url)
@@ -292,6 +299,20 @@ defineExpose({ initializeRandomSlug })
               :errors="formatErrors(field.state.meta.errors)"
             />
           </Field>
+        </form.Field>
+
+        <form.Field
+          v-if="isYouTubeAppLink"
+          v-slot="{ field }"
+          name="openInYouTubeApp"
+        >
+          <DashboardLinksEditorFieldSwitch
+            :id="`${formId}-${field.name}`"
+            :model-value="field.state.value"
+            :label="$t('links.form.open_youtube_app_label')"
+            :description="$t('links.form.open_youtube_app_description')"
+            @update:model-value="field.handleChange"
+          />
         </form.Field>
 
         <form.Field

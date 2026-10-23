@@ -166,3 +166,43 @@ export function generateOgHtml(link: Link, targetUrl: string, baseUrl: string): 
 </body>
 </html>`
 }
+
+function safeScriptString(value: string): string {
+  return JSON.stringify(value).replace(/</g, '\\u003c')
+}
+
+export function generateYouTubeAppOpenHtml(targetUrl: string, appUrl: string, locale: RedirectLocale = 'en-US', autoOpen = true): string {
+  const translation = REDIRECT_TRANSLATIONS[locale]
+
+  return `<!DOCTYPE html>
+<html lang="${escape(locale)}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <style>
+      body { font-family: system-ui, sans-serif; }
+      .app-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 0.625rem; background: oklch(0.21 0.006 285.885); color: oklch(0.985 0 0); font-weight: 600; text-decoration: none; }
+      .app-link:hover { background: oklch(0.274 0.006 286.033); }
+      .app-link:focus-visible { outline: 3px solid oklch(0.21 0.006 285.885); outline-offset: 3px; }
+    </style>
+    <title>${escape(autoOpen ? translation.youtubeOpening : translation.youtubeOpenInApp)}</title>
+</head>
+<body>
+    ${autoOpen ? `<p>${escape(translation.youtubeOpening)}</p>` : ''}
+    <p><a class="app-link" href="${escape(appUrl)}">${escape(translation.youtubeOpenInApp)}</a></p>
+    <p><a href="${escape(targetUrl)}">${escape(translation.youtubeWatchInBrowser)}</a></p>
+    ${autoOpen
+      ? `<script>
+      const appUrl = ${safeScriptString(appUrl)}
+      const fallbackUrl = ${safeScriptString(targetUrl)}
+      const fallbackTimer = window.setTimeout(() => window.location.replace(fallbackUrl), 1500)
+      const cancelFallback = () => window.clearTimeout(fallbackTimer)
+      document.addEventListener('visibilitychange', () => { if (document.hidden) cancelFallback() })
+      window.addEventListener('pagehide', cancelFallback, { once: true })
+      window.location.href = appUrl
+    </script>`
+      : ''}
+</body>
+</html>`
+}

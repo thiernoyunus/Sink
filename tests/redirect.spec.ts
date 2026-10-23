@@ -59,6 +59,84 @@ async function createProxyLink(url: string, extra: Record<string, unknown> = {})
 }
 
 describe('/', () => {
+  it('tries the YouTube app on mobile and includes the normal video as a fallback', async () => {
+    const slug = `youtube-app-${crypto.randomUUID()}`
+    const targetUrl = 'https://www.youtube.com/watch?v=abcdefghijk'
+    const createResponse = await postJson('/api/link/create', {
+      url: targetUrl,
+      slug,
+      openInYouTubeApp: true,
+    })
+    expect(createResponse.status).toBe(201)
+    createdSlugs.push(slug)
+
+    const response = await fetch(`/${slug}`, {
+      redirect: 'manual',
+      headers: { 'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0) AppleWebKit/605.1.15 Safari/604.1' },
+    })
+    const html = await response.text()
+    expect(response.status).toBe(200)
+    expect(response.headers.get('Cache-Control')).toBe('no-store')
+    expect(html).toContain('youtube://www.youtube.com/watch?v=abcdefghijk')
+    expect(html).toContain('href="youtube://www.youtube.com/watch?v=abcdefghijk">Open in YouTube app</a>')
+    expect(html).toContain(`<a href="${targetUrl}">Watch in your browser</a>`)
+    expect(html).toContain('window.location.replace(fallbackUrl)')
+  })
+
+  it('opens YouTube channel homepages in the app with the channel page as a fallback', async () => {
+    const slug = `youtube-channel-${crypto.randomUUID()}`
+    const targetUrl = 'https://youtube.com/@channel'
+    const createResponse = await postJson('/api/link/create', {
+      url: targetUrl,
+      slug,
+      openInYouTubeApp: true,
+    })
+    expect(createResponse.status).toBe(201)
+    createdSlugs.push(slug)
+
+    const response = await fetch(`/${slug}`, {
+      redirect: 'manual',
+      headers: { 'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0) Safari/604.1' },
+    })
+    const html = await response.text()
+    expect(response.status).toBe(200)
+    expect(html).toContain('youtube://www.youtube.com/@channel')
+    expect(html).toContain(`<a href="${targetUrl}">Watch in your browser</a>`)
+  })
+
+  it('uses an Android YouTube app link while social previews stay on the web URL', async () => {
+    const slug = `youtube-app-android-${crypto.randomUUID()}`
+    const targetUrl = 'https://youtu.be/abcdefghijk?t=30'
+    const createResponse = await postJson('/api/link/create', {
+      url: targetUrl,
+      slug,
+      title: 'YouTube preview',
+      openInYouTubeApp: true,
+    })
+    expect(createResponse.status).toBe(201)
+    createdSlugs.push(slug)
+
+    const androidResponse = await fetch(`/${slug}`, {
+      redirect: 'manual',
+      headers: { 'User-Agent': 'Mozilla/5.0 (Linux; Android 15) Chrome/140' },
+    })
+    const androidHtml = await androidResponse.text()
+    expect(androidResponse.status).toBe(200)
+    expect(androidHtml).toContain('href="intent://www.youtube.com/watch?t=30&amp;v=abcdefghijk#Intent;')
+    expect(androidHtml).toContain('S.browser_fallback_url=')
+    expect(androidHtml).not.toContain('window.location.href = appUrl')
+    expect(androidHtml).not.toContain('window.setTimeout')
+
+    const botResponse = await fetch(`/${slug}`, {
+      redirect: 'manual',
+      headers: { 'User-Agent': 'Twitterbot/1.0' },
+    })
+    const botHtml = await botResponse.text()
+    expect(botResponse.status).toBe(200)
+    expect(botHtml).toContain('<meta property="og:title" content="YouTube preview">')
+    expect(botHtml).not.toContain('intent://')
+  })
+
   it('redirects CriOS user agent to apple URL', async () => {
     const slug = `crios-apple-${crypto.randomUUID()}`
     const apple = 'https://apps.apple.com/app/sink-test'

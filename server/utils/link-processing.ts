@@ -11,6 +11,7 @@ const editableOptionalLinkFields = [
   'cloaking',
   'redirectWithQuery',
   'proxy',
+  'openInYouTubeApp',
   'expiration',
   'unsafe',
   'geo',

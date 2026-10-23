@@ -1,5 +1,6 @@
 import type { Link } from '@/types'
 import { parsePath, withQuery } from 'ufo'
+import { getYouTubeAppLinkUrl } from '#shared/utils/youtube'
 import { proxyLinkRequest } from '../services/link-proxy'
 
 const SOCIAL_BOTS = [
@@ -200,6 +201,12 @@ export default eventHandler(async (event) => {
         const html = generateOgHtml(link, targetUrl, baseUrl)
         setHeader(event, 'Content-Type', 'text/html; charset=utf-8')
         return html
+      }
+
+      if (link.openInYouTubeApp && !isSocialBot(userAgent)) {
+        const appUrl = getYouTubeAppLinkUrl(targetUrl, userAgent)
+        if (appUrl)
+          return sendNoStoreHtml(generateYouTubeAppOpenHtml(targetUrl, appUrl, getLocale(), !appUrl.startsWith('intent:')))
       }
 
       if (isProxyLink) {

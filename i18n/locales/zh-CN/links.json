@@ -72,6 +72,8 @@
       "expired_recovery": "此链接已过期。设置新的未来到期时间或清除到期时间即可恢复。",
       "pick_date": "选择日期",
       "device_redirect": "设备跳转",
+      "open_youtube_app_label": "在 YouTube 应用中打开",
+      "open_youtube_app_description": "在手机上尝试用 YouTube 打开此链接。如果无法打开，则在浏览器中打开。",
       "google_play": "Google Play 链接",
       "app_store": "App Store 链接",
       "link_settings": "链接设置",
